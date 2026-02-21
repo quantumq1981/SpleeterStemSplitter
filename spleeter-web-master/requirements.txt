@@ -1,0 +1,46 @@
+azure-storage-blob==12.27.1
+boto3==1.42.53
+celery==5.3.6
+cffi==2.0.0
+demucs==4.0.1
+Django==4.2.26
+django-picklefield==3.4.0
+django-storages==1.14.6
+django-webpack-loader==1.8.1
+djangorestframework==3.16.1
+google-api-python-client==2.190.0
+gunicorn==23.0.0
+h2==4.3.0
+kombu==5.6.1
+lameenc==1.8.1
+mutagen==1.47.0
+librosa>=0.10.0
+numpy==1.24.3
+protobuf==4.25.5
+redis==4.6.0
+SQLAlchemy==1.4.54
+# TF 2.16+ not compatbile due to decprecation of Estimator APIs (which Spleeter uses)
+tensorflow==2.15.1
+torch==2.9.1
+torchaudio==2.9.1
+tzdata==2025.2
+validators==0.35.0
+whitenoise==6.11.0
+yapf==0.43.0
+youtube-title-parse==1.0.0
+yt-dlp @ git+https://github.com/JeffreyCA/yt-dlp@4499cc5f7d6eef78b0092304626bd87c852f66f0
+python-magic==0.4.27; sys_platform == 'linux'
+python-magic-bin==0.4.14; sys_platform != 'linux'
+# Spleeter dependencies
+ffmpeg-python==0.2.0
+# Do NOT upgrade to 0.20.0 or later until https://github.com/deezer/spleeter/pull/808 is fixed
+httpx==0.19.0
+# Override Spleeter's hard llvmlite dependency
+norbert==0.2.1
+pandas==1.5.3
+typer==0.20.0
+# BS-RoFormer dependencies
+einops>=0.6.0
+beartype>=0.14.0
+rotary-embedding-torch>=0.3.0
+omegaconf>=2.3.0

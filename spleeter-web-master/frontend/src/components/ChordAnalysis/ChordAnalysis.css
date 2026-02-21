@@ -1,0 +1,48 @@
+.chord-table {
+  font-size: 0.875rem;
+  max-height: 400px;
+  overflow-y: auto;
+  display: block;
+}
+
+.chord-table thead {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.chord-table td {
+  vertical-align: middle;
+}
+
+.confidence-bar {
+  position: relative;
+  height: 20px;
+  background: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 80px;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: #28a745;
+  transition: width 0.3s ease;
+}
+
+.confidence-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.analysis-header {
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
