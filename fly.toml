@@ -1,32 +1,23 @@
-# fly.toml - Fly.io deployment configuration for Spleeter Stem Splitter
-# See https://fly.io/docs/reference/configuration/ for reference
+# fly.toml app configuration file generated for spleeterstemsplitter-gie4tw on 2026-02-23T17:07:05Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "spleeter-stem-splitter"
-primary_region = "ams"
+app = 'spleeterstemsplitter-gie4tw'
+primary_region = 'ams'
 
 [build]
-  dockerfile = "Dockerfile"
-
-[env]
-  DJANGO_SETTINGS_MODULE = "django_react.settings_docker"
-  ALLOW_ALL_HOSTS = "1"
-  CPU_SEPARATION = "1"
-  TF_CPP_MIN_LOG_LEVEL = "2"
-  PORT = "8000"
 
 [http_service]
-  internal_port = 8000
+  internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  memory = "2gb"
-  cpu_kind = "shared"
-  cpus = 2
-
-[mounts]
-  source = "spleeter_data"
-  destination = "/webapp/sqlite"
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
