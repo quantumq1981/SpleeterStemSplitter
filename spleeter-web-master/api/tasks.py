@@ -17,9 +17,32 @@ from .models import (DEMUCS_FAMILY, D3NET, SPLEETER, SPLEETER_PIANO, XUMX, BS_RO
                      BS_ROFORMER_FAMILY,
                      ChordAnalysis, DynamicMix, SourceFile, StaticMix, TaskStatus,
                      YTAudioDownloadTask)
-from .separators.demucs_separator import DemucsSeparator
-from .separators.spleeter_separator import SpleeterSeparator
-from .separators.bs_roformer_separator import BSRoformerSeparator
+# Lazy-import separators: they require torch/tensorflow which may not be
+# installed in lightweight deployments (e.g. Fly.io).
+DemucsSeparator = None
+SpleeterSeparator = None
+BSRoformerSeparator = None
+
+def _load_separators():
+    global DemucsSeparator, SpleeterSeparator, BSRoformerSeparator
+    if DemucsSeparator is None:
+        try:
+            from .separators.demucs_separator import DemucsSeparator as _D
+            DemucsSeparator = _D
+        except ImportError:
+            pass
+    if SpleeterSeparator is None:
+        try:
+            from .separators.spleeter_separator import SpleeterSeparator as _S
+            SpleeterSeparator = _S
+        except ImportError:
+            pass
+    if BSRoformerSeparator is None:
+        try:
+            from .separators.bs_roformer_separator import BSRoformerSeparator as _B
+            BSRoformerSeparator = _B
+        except ImportError:
+            pass
 from .util import ALL_PARTS, ALL_PARTS_5_PIANO, ALL_PARTS_5_GUITAR, ALL_PARTS_6, output_format_to_ext, get_valid_filename
 from .youtubedl import download_audio, get_file_ext
 
@@ -33,6 +56,7 @@ LEGACY_SEPARATORS = {D3NET, XUMX}
 def get_separator(separator: str, separator_args: Dict, bitrate: int,
                   cpu_separation: bool):
     """Returns separator object for corresponding source separation model."""
+    _load_separators()
     if separator in LEGACY_SEPARATORS:
         raise ValueError(
             f'{separator} is no longer supported for new separations.')
