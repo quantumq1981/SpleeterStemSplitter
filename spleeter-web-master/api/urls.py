@@ -1,10 +1,17 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import JsonResponse
 
 from . import views
 
+
+def health_check(request):
+    return JsonResponse({'status': 'ok'})
+
+
 urlpatterns = [
+    path('api/health/', health_check),
     path('api/search/', views.YouTubeSearchView.as_view()),
     path('api/source-file/all/', views.SourceFileListView.as_view()),
     path(

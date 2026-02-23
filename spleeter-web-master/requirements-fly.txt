@@ -1,0 +1,37 @@
+# Fly.io lightweight requirements
+# Excludes heavy ML deps (torch, tensorflow, demucs, spleeter) that need
+# GPU and would exceed Fly.io memory limits. Stem separation features are
+# disabled; chord detection (librosa-based) works fully.
+azure-storage-blob==12.27.1
+boto3==1.42.53
+celery==5.3.6
+cffi==2.0.0
+Django==4.2.26
+django-picklefield==3.4.0
+django-storages==1.14.6
+django-webpack-loader==1.8.1
+djangorestframework==3.16.1
+google-api-python-client==2.190.0
+gunicorn==23.0.0
+h2==4.3.0
+kombu==5.6.1
+lameenc==1.8.1
+mutagen==1.47.0
+librosa>=0.10.0
+numpy==1.24.3
+protobuf==4.25.5
+redis==4.6.0
+SQLAlchemy==1.4.54
+tzdata==2025.2
+validators==0.35.0
+whitenoise==6.11.0
+yapf==0.43.0
+youtube-title-parse==1.0.0
+yt-dlp @ git+https://github.com/JeffreyCA/yt-dlp@4499cc5f7d6eef78b0092304626bd87c852f66f0
+python-magic==0.4.27; sys_platform == 'linux'
+python-magic-bin==0.4.14; sys_platform != 'linux'
+ffmpeg-python==0.2.0
+httpx==0.19.0
+norbert==0.2.1
+pandas==1.5.3
+typer==0.20.0
