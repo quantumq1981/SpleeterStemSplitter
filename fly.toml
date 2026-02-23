@@ -5,7 +5,7 @@ app = "spleeter-stem-splitter"
 primary_region = "ams"
 
 [build]
-  dockerfile = "Dockerfile.fly"
+  dockerfile = "Dockerfile"
 
 [env]
   DJANGO_SETTINGS_MODULE = "django_react.settings_docker"
