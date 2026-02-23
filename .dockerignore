@@ -1,0 +1,7 @@
+.git
+*.zip
+*.gz
+spleeter-web-master/frontend/node_modules
+spleeter-web-master/.pytest_cache
+__pycache__
+*.pyc
