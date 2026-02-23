@@ -7,12 +7,20 @@ A three-phase pipeline for extracting chord progressions from audio:
   Phase 3: Chord inference with key-aware theory filtering and transition modeling
 """
 
-from .chromagram import ChromagramExtractor
 from .chord_recognizer import ChordRecognizer
 from .key_detector import KeyDetector
 from .transition_matrix import TransitionMatrix
 from .chart_export import ChartExporter
-from .pipeline import ChordDetectionPipeline
+
+# ChromagramExtractor and ChordDetectionPipeline require librosa (heavy audio
+# dependency). Import them lazily so that lightweight consumers (tests, CLI
+# tools that only need the recognizer/key detector) don't need librosa installed.
+try:
+    from .chromagram import ChromagramExtractor
+    from .pipeline import ChordDetectionPipeline
+except ImportError:
+    ChromagramExtractor = None
+    ChordDetectionPipeline = None
 
 __all__ = [
     'ChromagramExtractor',

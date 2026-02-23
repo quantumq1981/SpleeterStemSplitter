@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { DynamicMix } from '../../models/DynamicMix';
 import { SongData } from '../../models/SongData';
 import { StaticMix } from '../../models/StaticMix';
+import ChordAnalysisModal from '../ChordAnalysis/ChordAnalysisModal';
 import HomeNavBar from '../Nav/HomeNavBar';
 import DeleteDynamicMixModal from '../SongTable/Modal/DeleteDynamicMixModal';
 import DeleteStaticMixModal from '../SongTable/Modal/DeleteStaticMixModal';
@@ -24,6 +25,10 @@ interface SeparationTask {
 }
 
 interface State {
+  /**
+   * Whether to show chord analysis modal
+   */
+  showChordAnalysisModal: boolean;
   /**
    * Whether to show delete dynamic mix modal
    */
@@ -97,6 +102,7 @@ class Home extends React.Component<RouteComponentProps, State> {
   constructor(props: RouteComponentProps) {
     super(props);
     this.state = {
+      showChordAnalysisModal: false,
       showDeleteDynamicMixModal: false,
       showDeleteStaticMixModal: false,
       showDeleteTrackModal: false,
@@ -241,6 +247,14 @@ class Home extends React.Component<RouteComponentProps, State> {
     }
   };
 
+  onChordAnalysisClick = (song: SongData): void => {
+    this.setState({ showChordAnalysisModal: true, currentModalSrcSong: song });
+  };
+
+  handleChordAnalysisModalHide = (): void => {
+    this.setState({ showChordAnalysisModal: false });
+  };
+
   onDeleteDynamicMixClick = (mix: DynamicMix): void => {
     this.setState({ showDeleteDynamicMixModal: true, currentModalDynamicMix: mix });
   };
@@ -334,6 +348,7 @@ class Home extends React.Component<RouteComponentProps, State> {
   render(): JSX.Element {
     const {
       songList,
+      showChordAnalysisModal,
       showDeleteDynamicMixModal,
       showDeleteStaticMixModal,
       showDeleteTrackModal,
@@ -387,6 +402,7 @@ class Home extends React.Component<RouteComponentProps, State> {
               expandedIds={expandedIds}
               onExpandRow={this.onExpandRow}
               onExpandAll={this.onExpandAll}
+              onChordAnalysisClick={this.onChordAnalysisClick}
               onDeleteDynamicMixClick={this.onDeleteDynamicMixClick}
               onDeleteStaticMixClick={this.onDeleteStaticMixClick}
               onDeleteTrackClick={this.onDeleteTrackClick}
@@ -407,6 +423,11 @@ class Home extends React.Component<RouteComponentProps, State> {
           onAudioPlay={this.onAudioPlay}
         />
         <UploadModal show={showUploadModal} hide={this.handleUploadModalHide} refresh={this.loadData} />
+        <ChordAnalysisModal
+          show={showChordAnalysisModal}
+          song={currentModalSrcSong || null}
+          onHide={this.handleChordAnalysisModalHide}
+        />
         <DynamicMixModal
           show={showDynamicMixModal}
           hide={this.handleDynamicMixModalHide}

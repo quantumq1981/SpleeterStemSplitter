@@ -13,6 +13,7 @@ import { DynamicMix } from '../../models/DynamicMix';
 import { SongData } from '../../models/SongData';
 import { StaticMix } from '../../models/StaticMix';
 import { toLocaleDateTimeString, toRelativeDateSpan } from '../../Utils';
+import ChordAnalysisButton from './Button/ChordAnalysisButton';
 import DeleteTrackButton from './Button/DeleteTrackButton';
 import PausePlayButton from './Button/PausePlayButton';
 import TextButton from './Button/TextButton';
@@ -67,7 +68,7 @@ const playColFormatter: ColumnFormatter<SongData> = (cell, row, rowIndex, format
  * Formatter function for separate button column.
  */
 const spleetColFormatter: ColumnFormatter<SongData> = (cell, row, rowIndex, formatExtraData) => {
-  const { onDeleteTrackClick, onDynamicMixClick, onStaticMixClick } = formatExtraData;
+  const { onDeleteTrackClick, onDynamicMixClick, onStaticMixClick, onChordAnalysisClick } = formatExtraData;
   const disabled = !row.url;
 
   return (
@@ -80,6 +81,7 @@ const spleetColFormatter: ColumnFormatter<SongData> = (cell, row, rowIndex, form
         <Plus className="align-middle" size={24} />
         <span className="align-middle">Static Mix</span>
       </TextButton>
+      <ChordAnalysisButton disabled={disabled} onClick={onChordAnalysisClick} song={row} />
       <DeleteTrackButton onClick={onDeleteTrackClick} song={row} />
     </div>
   );
@@ -92,6 +94,7 @@ interface Props {
   expandedIds: string[];
   onExpandRow: (row: SongData, isExpand: boolean) => void;
   onExpandAll: (isExpandAll: boolean, results: SongData[], e: React.SyntheticEvent) => void;
+  onChordAnalysisClick: (song: SongData) => void;
   onDeleteDynamicMixClick: (dynamicMix: DynamicMix) => void;
   onDeleteStaticMixClick: (staticMix: StaticMix) => void;
   onDeleteTrackClick: (song: SongData) => void;
@@ -113,6 +116,7 @@ class SongTable extends React.Component<Props> {
       currentSongUrl,
       isPlaying,
       expandedIds,
+      onChordAnalysisClick,
       onDeleteDynamicMixClick,
       onDeleteStaticMixClick,
       onDeleteTrackClick,
@@ -243,6 +247,7 @@ class SongTable extends React.Component<Props> {
         text: '',
         formatter: spleetColFormatter,
         formatExtraData: {
+          onChordAnalysisClick: onChordAnalysisClick,
           onDeleteTrackClick: onDeleteTrackClick,
           onDynamicMixClick: onDynamicMixClick,
           onStaticMixClick: onStaticMixClick,
