@@ -16,6 +16,15 @@ primary_region = 'ams'
   min_machines_running = 0
   processes = ['app']
 
+  # Health check — give startup time for migrations + collectstatic
+  [http_service.checks]
+    [http_service.checks.health]
+      interval = "15s"
+      timeout = "10s"
+      grace_period = "120s"
+      method = "GET"
+      path = "/api/health/"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
